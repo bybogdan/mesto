@@ -1,0 +1,9 @@
+@import url(./__text/footer__text.css);
+
+.footer{
+  margin: 0 auto;
+  max-width: 882px;
+  padding: 0 19px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  color: #545454;
+}

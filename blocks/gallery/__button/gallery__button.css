@@ -1,0 +1,19 @@
+.gallery__button{
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+  height: 19px;
+  transition: all ease .2s;
+  cursor: pointer;
+  position: relative;
+  top: -4px;
+}
+
+.gallery__button:hover .gallery__button-icon{
+  opacity: .6;
+}
+
+.gallery__button:active{
+  transform: scale(.96);
+}

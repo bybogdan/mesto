@@ -1,0 +1,22 @@
+@import url(./__nav/gallery__nav.css);
+@import url(./__elements/gallery__elements.css);
+@import url(./__element/gallery__element.css);
+@import url(./__img/gallery__img.css);
+@import url(./__content/gallery__content.css);
+@import url(./__element-title/gallery__element-title.css);
+@import url(./__button/gallery__button.css);
+
+
+.gallery {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  color: #000;
+  margin: 0;
+  margin-bottom: 66px;
+  width: 100%;
+}
+
+@media screen and (max-width: 619px){
+  .gallery{
+    margin-bottom: 48px;
+  }
+}

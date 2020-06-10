@@ -1,0 +1,10 @@
+.gallery__element {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: block;
+  max-width: 282px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding-bottom: 30px;
+}
