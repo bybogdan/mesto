@@ -7,7 +7,7 @@
 ___
 ##
 **Проект размещен на хостинге _GitHub Pages_**
-**[https://bybogdan.github.io/mesto/]()**
+**[Ссылка на проектную работу](https://bybogdan.github.io/mesto/)**
 ##
 ___
 
