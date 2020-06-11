@@ -4,10 +4,8 @@
 @import url(./__content-head/profile__content-head.css);
 @import url(./__title/profile__title.css);
 @import url(./__edit-button/profile__edit-button.css);
-@import url(./__edit-button-icon/profile__edit-button-icon.css);
 @import url(./__subtitle/profile__subtitle.css);
 @import url(./__add-button/profile__add-button.css);
-@import url(./__button-plus/profile__button-plus.css);
 
 
 .profile {
@@ -16,7 +14,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 50px;
 }
 
 @media screen and (max-width: 919px){
@@ -28,6 +25,5 @@
 @media screen and (max-width: 619px){
   .profile{
     justify-content: flex-start;
-    margin-bottom: 36px;
   }
 }

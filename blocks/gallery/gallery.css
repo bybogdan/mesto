@@ -1,4 +1,3 @@
-@import url(./__nav/gallery__nav.css);
 @import url(./__elements/gallery__elements.css);
 @import url(./__element/gallery__element.css);
 @import url(./__img/gallery__img.css);
@@ -11,12 +10,5 @@
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   color: #000;
   margin: 0;
-  margin-bottom: 66px;
   width: 100%;
-}
-
-@media screen and (max-width: 619px){
-  .gallery{
-    margin-bottom: 48px;
-  }
 }

@@ -1,5 +1,7 @@
 const buttonEdit = document.querySelector('.profile__edit-button');
 
+const popupForm = document.querySelector('.popup__form');
+
 const nameProfile = document.querySelector('.profile__title');
 const captionProfile = document.querySelector('.profile__subtitle');
 
@@ -21,13 +23,15 @@ function exitPopup() {
   popup.classList.remove('popup_opened');
 }
 
-function saveChangesPopup() {
+function saveChangesPopup(evt) {
+  // отменяем действие по умолчанию
+  evt.preventDefault();
   nameProfile.textContent = inputName.value;
   captionProfile.textContent = inputCaption.value;
-  popup.classList.remove('popup_opened');
+  exitPopup();
 }
 
 buttonEdit.addEventListener('click', openPopup);
 buttonExit.addEventListener('click', exitPopup);
-buttonSave.addEventListener('click', saveChangesPopup);
+popupForm.addEventListener('submit', saveChangesPopup);
 

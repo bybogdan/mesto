@@ -1,6 +1,6 @@
 .profile__edit-button {
   padding: 0;
-  background-color: transparent;
+  background: transparent url(../../../images/profile__button-pen.svg) no-repeat center;
   box-sizing: border-box;
   width: 24px;
   height: 24px;

@@ -3,11 +3,10 @@
 .header{
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   box-sizing: border-box;
-  min-height: 74px;
+  padding-bottom: 40px;
   border-bottom: 1px solid rgba(84, 84, 84, .7);
   margin: 0 auto;
   max-width: 882px;
-  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 919px){
@@ -18,7 +17,6 @@
 
 @media screen and (max-width: 619px){
   .header{
-    min-height: 56px;
-    margin-bottom: 42px;
+    padding-bottom: 31px;
   }
 }

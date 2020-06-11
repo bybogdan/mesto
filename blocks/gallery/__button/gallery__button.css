@@ -1,16 +1,17 @@
 .gallery__button{
   border: none;
-  background-color: transparent;
+  background: transparent url(../../../images/gallery__heart.svg) no-repeat center;
   outline: none;
   padding: 0;
   height: 19px;
+  width: 21px;
   transition: all ease .2s;
   cursor: pointer;
   position: relative;
   top: -4px;
 }
 
-.gallery__button:hover .gallery__button-icon{
+.gallery__button:hover{
   opacity: .6;
 }
 
