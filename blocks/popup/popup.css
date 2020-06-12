@@ -9,6 +9,7 @@
 
 
 .popup{
+  user-select: none;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   color: #000;
   position: fixed;

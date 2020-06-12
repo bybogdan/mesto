@@ -13,24 +13,26 @@ const inputCaption = popup.querySelector('.popup__input_text_caption');
 const buttonSave = popup.querySelector('.popup__button-save');
 const buttonExit = popup.querySelector('.popup__button-exit');
 
-function openPopup() {
-  popup.classList.add('popup_opened');
+function popupToggle() {
+  popup.classList.toggle('popup_opened');
   inputName.value = nameProfile.textContent;
   inputCaption.value = captionProfile.textContent;
 }
 
-function exitPopup() {
-  popup.classList.remove('popup_opened');
-}
-
-function saveChangesPopup(evt) {
-  // отменяем действие по умолчанию
-  evt.preventDefault();
+function saveChangesPopup(e) {
+  e.preventDefault();
   nameProfile.textContent = inputName.value;
   captionProfile.textContent = inputCaption.value;
-  exitPopup();
+  popupToggle();
 }
 
-buttonEdit.addEventListener('click', openPopup);
-buttonExit.addEventListener('click', exitPopup);
+function CloseAround(e) {
+  if (e.target === popup) {
+    popupToggle();
+  }
+}
+
+buttonEdit.addEventListener('click', popupToggle);
+buttonExit.addEventListener('click', popupToggle);
 popupForm.addEventListener('submit', saveChangesPopup);
+popup.addEventListener('click', CloseAround);
