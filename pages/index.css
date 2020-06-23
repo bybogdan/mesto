@@ -11,3 +11,5 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup-add/popup-add.css);
 @import url(../blocks/popup-add/_opened/popup-add_opened.css);
+@import url(../blocks/full/full.css);
+@import url(../blocks/full/_opened/full_opened.css);

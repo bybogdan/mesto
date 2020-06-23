@@ -1,0 +1,21 @@
+.full__close{
+  border: none;
+  outline: none;
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: transparent url(../../../images/Close-Icon.svg) no-repeat center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: all ease .2s;
+}
+
+.full__close:hover{
+  opacity: .6;
+}
+
+.full__close:active{
+  transform: scale(.96);
+}
