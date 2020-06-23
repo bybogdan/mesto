@@ -1,4 +1,4 @@
-.popup__button-exit{
+.popup-add__button-exit{
   position: absolute;
   top: -40px;
   right: -40px;
@@ -11,10 +11,10 @@
   transition: all ease .2s;
 }
 
-.popup__button-exit:hover{
+.popup-add__button-exit:hover{
   opacity: .6;
 }
 
-.popup__button-exit:active{
+.popup-add__button-exit:active{
   transform: scale(.96);
 }

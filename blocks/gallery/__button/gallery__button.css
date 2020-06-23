@@ -1,3 +1,5 @@
+@import url(./_selected/gallery__button_selected.css);
+
 .gallery__button{
   border: none;
   background: transparent url(../../../images/gallery__heart.svg) no-repeat center;
@@ -13,8 +15,4 @@
 
 .gallery__button:hover{
   opacity: .6;
-}
-
-.gallery__button:active{
-  transform: scale(.96);
 }
