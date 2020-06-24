@@ -1,20 +1,3 @@
-.popup__button-exit{
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  background: transparent url(../../../images/Close-Icon.svg) no-repeat center;
-  border: none;
-  width: 41px;
-  height: 41px;
-  outline: none;
-  cursor: pointer;
-  transition: all ease .2s;
-}
+/* .popup__button-exit{
 
-.popup__button-exit:hover{
-  opacity: .6;
-}
-
-.popup__button-exit:active{
-  transform: scale(.96);
-}
+} */

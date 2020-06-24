@@ -1,17 +1,5 @@
 @import url(./_text/popup-add__input_text_name.css);
 @import url(./_text/popup-add__input_text_name.css);
 
-.popup-add__input{
-  padding: 0;
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.22;
-  padding-bottom: 7px;
-  margin-bottom: 30px;
-}
-
-.popup-add__input:last-of-type{
-  margin-bottom: 48px;
-}
+/* .popup-add__input{
+} */

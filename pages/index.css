@@ -7,6 +7,14 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/popups/popups.css);
+@import url(../blocks/popups-container/popups-container.css);
+@import url(../blocks/popups-form/popups-form.css);
+@import url(../blocks/popups-title/popups-title.css);
+@import url(../blocks/popups-input/popups-input.css);
+@import url(../blocks/popups-save/popups-save.css);
+@import url(../blocks/popups-exit/popups-exit.css);
+
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup-add/popup-add.css);

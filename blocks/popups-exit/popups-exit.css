@@ -1,0 +1,29 @@
+.popups-exit{
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: transparent url(../../../images/Close-Icon.svg) no-repeat center;
+  border: none;
+  width: 41px;
+  height: 41px;
+  outline: none;
+  cursor: pointer;
+  transition: all ease .2s;
+}
+
+.popups-exit:hover{
+  opacity: .6;
+}
+
+.popups-exit:active{
+  transform: scale(.96);
+}
+
+@media screen and  (max-width: 400px){
+  .popups-exit{
+    top: -29px;
+    right: -30px;
+    width: 30px;
+    height: 30px;
+  }
+}

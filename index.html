@@ -109,36 +109,37 @@
       <p class="footer__text">&#169; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup">
-      <div class="popup__container">
-        <form action="URL" name="form" method="post" class="popup__form">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" name="name" class="popup__input popup__input_text_name " />
-          <input type="text" name="caption" class="popup__input popup__input_text_caption " />
-          <button type="submit" class="popup__button-save ">Сохранить</button>
+    <section class="popup popus">
+      <div class="popup__container popups-container">
+        <form action="URL" name="form" method="post" class="popup__form popups-form">
+          <h2 class="popup__title popups-title">Редактировать профиль</h2>
+          <input type="text" name="name" class="popup__input popup__input_text_name popups-input" />
+          <input type="text" name="caption" class="popup__input popup__input_text_caption popups-input" />
+          <button type="submit" class="popup__button-save popups-save">Сохранить</button>
         </form>
-        <button type="button" class="popup__button-exit"></button>
+        <button type="button" class="popup__button-exit popups-exit"></button>
       </div>
     </section>
 
-    <section class="popup-add">
-      <div class="popup-add__container">
-        <form action="URL" name="form" method="post" class="popup-add__form">
-          <h2 class="popup-add__title">Новое место</h2>
-          <input type="text" name="name" class="popup-add__input popup-add__input_text_name" placeholder="Название" />
-          <input type="text" name="caption" class="popup-add__input popup-add__input_text_caption"
+    <section class="popup-add popus">
+      <div class="popup-add__container popups-container">
+        <form action="URL" name="form" method="post" class="popup-add__form popups-form">
+          <h2 class="popup-add__title popups-title">Новое место</h2>
+          <input type="text" name="name" class="popup-add__input popup-add__input_text_name popups-input"
+            placeholder="Название" />
+          <input type="text" name="caption" class="popup-add__input popup-add__input_text_caption popups-input"
             placeholder="Ссылка на картинку" />
-          <button type="submit" class="popup-add__button-save ">Сохранить</button>
+          <button type="submit" class="popup-add__button-save popups-save">Сохранить</button>
         </form>
-        <button type="button" class="popup-add__button-exit"></button>
+        <button type="button" class="popup-add__button-exit popups-exit"></button>
       </div>
     </section>
 
-    <section class="full">
+    <section class="full popus">
       <div class="full__container">
-        <img src="./images/element3.png" alt="#" class="full__image">
-        <h3 class="full__title">Карачаево-Черкессия</h3>
-        <button type="button" class="full__close"></button>
+        <img src="#" alt="#" class="full__image">
+        <h3 class="full__title"></h3>
+        <button type="button" class="full__close popups-exit"></button>
       </div>
     </section>
 
