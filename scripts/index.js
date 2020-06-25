@@ -1,30 +1,13 @@
-// массив
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const buttonEdit = document.querySelector(".profile__edit-button");
+const popupForm = document.querySelector(".popup__form");
+const nameProfile = document.querySelector(".profile__title");
+const captionProfile = document.querySelector(".profile__subtitle");
+const popup = document.querySelector(".popup");
+const inputName = popup.querySelector(".popup__input_text_name");
+const inputCaption = popup.querySelector(".popup__input_text_caption");
+
+const buttonSave = popup.querySelector(".popup__button-save");
+const buttonExit = popup.querySelector(".popup__button-exit");
 
 // доступ к template content
 const card = document.querySelector('#card').content;
@@ -47,7 +30,24 @@ const popupAddForm = document.querySelector('.popup-add__form');
 const cardTitle = document.querySelector('.popup-add__input_text_name');
 const cardSrc = document.querySelector('.popup-add__input_text_caption');
 
+function popupToggle() {
+  popup.classList.toggle("popup_opened");
+  inputName.value = nameProfile.textContent;
+  inputCaption.value = captionProfile.textContent;
+}
 
+function saveChangesPopup(e) {
+  e.preventDefault();
+  nameProfile.textContent = inputName.value;
+  captionProfile.textContent = inputCaption.value;
+  popupToggle();
+}
+
+function CloseAround(e) {
+  if (e.target === popup) {
+    popupToggle();
+  }
+}
 
 // функция создания карточки и добавления ее нужных параметров что берутся из массива
 function createCard(element) {
@@ -153,27 +153,15 @@ function makeNewCard() {
     name: cardTitle.value,
     link: cardSrc.value
   }
-
   createSingleCard(newCard);
 
   const likeBtn = document.querySelector('.gallery__button');
   likeToggle(likeBtn);
-
   const trashBtn = document.querySelector('.gallery__trash-button');
   trashButton(trashBtn);
-
   const cardForFull = document.querySelector('.gallery__element');
   openFullImage(cardForFull);
 }
-
-// функция доабавления новой отдельной карточки на страницу по нажатию сохранить и очищение инпутов формы
-popupAddForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  makeNewCard();
-  togglePopupAdd();
-  cardTitle.value = '';
-  cardSrc.value = '';
-});
 
 // функция добавление первых шести карточек на страницу карточки на страницу
 function createStartersCard() {
@@ -185,7 +173,19 @@ function createStartersCard() {
   selectFullImages();
 }
 
+// функция добавления новой отдельной карточки на страницу по нажатию сохранить и очищение инпутов формы
+popupAddForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  makeNewCard();
+  togglePopupAdd();
+  cardTitle.value = '';
+  cardSrc.value = '';
+});
+
 // вызов функция создания страртовых шести карточек
 createStartersCard();
 
-
+buttonEdit.addEventListener("click", popupToggle);
+buttonExit.addEventListener("click", popupToggle);
+popupForm.addEventListener("submit", saveChangesPopup);
+popup.addEventListener("click", CloseAround);
