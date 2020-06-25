@@ -7,6 +7,7 @@
   line-height: 1.22;
   padding-bottom: 7px;
   margin-bottom: 30px;
+  overflow: visible;
 }
 
 .popups-input:last-of-type{
