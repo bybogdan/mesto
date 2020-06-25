@@ -8,7 +8,7 @@
 @import url(./__button/_selected/gallery__button_selected.css);
 
 .gallery {
-  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   color: #000;
   margin: 0;
   width: 100%;
