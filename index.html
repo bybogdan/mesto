@@ -50,7 +50,7 @@
       <p class="footer__text">&#169; 2020 Mesto Russia</p>
     </footer>
 
-    <section class="popup popups">
+    <!-- <section class="popup popups">
       <div class="popup__container popups-container">
         <form action="URL" name="form" method="post" class="popup__form popups-form">
           <h2 class="popup__title popups-title">Редактировать профиль</h2>
@@ -60,9 +60,23 @@
         </form>
         <button type="button" class="popup__button-exit popups-exit"></button>
       </div>
+    </section> -->
+
+    <section id="popup-edit-profile" class="popup-edit-profile popup">
+      <div class="popup-edit-profile__container popup-container">
+        <form action="URL" name="form" method="post" class="popup-edit-profile__form popup-form">
+          <h2 class="popup-edit-profile__title popup-title">Редактировать профиль</h2>
+          <input type="text" name="name"
+            class="popup-edit-profile__input popup-edit-profile__input_text_name popup-input" required />
+          <input type="text" name="caption"
+            class="popup-edit-profile__input popup-edit-profile__input_text_caption popup-input" required />
+          <button type="submit" class="popup-edit-profile__button-save popup-save">Сохранить</button>
+        </form>
+        <button type="button" class="popup-edit-profile__button-exit popup-exit"></button>
+      </div>
     </section>
 
-    <section class="popup-add popups">
+    <!-- <section class="popup-add popups">
       <div class="popup-add__container popups-container">
         <form action="URL" name="form" method="post" class="popup-add__form popups-form">
           <h2 class="popup-add__title popups-title">Новое место</h2>
@@ -74,13 +88,35 @@
         </form>
         <button type="button" class="popup-add__button-exit popups-exit"></button>
       </div>
+    </section> -->
+
+    <section id="popup-add-card" class="popup-add-card popup">
+      <div class="popup-add-card__container popup-container">
+        <form action="URL" name="form" method="post" class="popup-add-card__form popup-form">
+          <h2 class="popup-add-card__title popup-title">Новое место</h2>
+          <input type="text" name="name" class="popup-add-card__input popup-add-card__input_text_name popup-input"
+            placeholder="Название" required />
+          <input type="text" name="caption" class="popup-add-card__input popup-add-card__input_text_caption popup-input"
+            placeholder="Ссылка на картинку" required />
+          <button type="submit" class="popup-add-card__button-save popup-save">Сохранить</button>
+        </form>
+        <button type="button" class="popup-add-card__button-exit popup-exit"></button>
+      </div>
     </section>
 
-    <section class="full popups">
+    <!-- <section class="full popups">
       <div class="full__container">
         <img src="#" alt="#" class="full__image">
         <h3 class="full__title"></h3>
         <button type="button" class="full__close popups-exit"></button>
+      </div>
+    </section> -->
+
+    <section id="popup-full-image" class="popup-full-image popup">
+      <div class="popup-full-image__container">
+        <img src="#" alt="#" class="popup-full-image__image">
+        <h3 class="popup-full-image__title"></h3>
+        <button type="button" class="popup-full-image__close popup-exit"></button>
       </div>
     </section>
 

@@ -1,0 +1,17 @@
+@import url(./__container/popup-edit-profile__container.css);
+@import url(./__form/popup-edit-profile__form.css);
+@import url(./__title/popup-edit-profile__title.css);
+@import url(./__input/popup-edit-profile__input.css);
+@import url(./__input/_text/popup-edit-profile__input_text_name.css);
+@import url(./__input/_text/popup-edit-profile__input_text_caption.css);
+@import url(./__button-save/popup-edit-profile__button-save.css);
+@import url(./__button-exit/popup-edit-profile__button-exit.css);
+
+
+.popup-edit-profile{
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility .6s, opacity .3s linear;
+}
