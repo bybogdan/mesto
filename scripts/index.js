@@ -129,7 +129,7 @@ const saveNewCard = (evt) => {
 
 // функция переключатель лайков
 const likeToggle = (element) => {
-  element.classList.toggle('gallery__button_selected')
+  element.classList.toggle('gallery__like-button_selected')
 }
 
 //функция удаления карточке работа с кнопкой удаления
@@ -138,76 +138,79 @@ const trashButton = (element) => {
   listItem.remove();
 }
 
-// функция открытия на весь экран картинки полноразмерной
 const openPopupFull = (element) => {
   const parentElement = element.closest('.gallery__element');
   const elementTitle = parentElement.querySelector('.gallery__element-title');
   popupFullImage.src = element.src;
   popupFullImage.alt = elementTitle.textContent;
   popupFullTitle.textContent = elementTitle.textContent;
-  togglePopup(popupFull);
+}
+
+// обработчики для попапа изменения профиля
+const popupEditHandler = () => {
+  buttonEdit.addEventListener('click', () => {
+    togglePopup(popupEdit);
+    editProfile();
+  });
+  popupEditBtnExit.addEventListener('click', () => {
+    togglePopup(popupEdit);
+  });
+  popupEditForm.addEventListener('submit', saveChangesPopupEdit);
+  popupEdit.addEventListener('click', (evt) => {
+    closePopup(evt, popupEdit);
+  });
+  window.addEventListener('keydown', (evt) => {
+    closePopup(evt, popupEdit);
+  });
+}
+
+// обработчики для добавление новых карточек
+const popupAddHandler = () => {
+  creatNewCardBtn.addEventListener('click', () => {
+    togglePopup(popupAdd);
+  });
+  popupAddBtnExit.addEventListener('click', () => {
+    togglePopup(popupAdd);
+  });
+  popupAddForm.addEventListener('submit', (evt) => {
+    saveNewCard(evt);
+    togglePopup(popupAdd);
+  });
+  popupAdd.addEventListener('click', (evt) => {
+    closePopup(evt, popupAdd);
+  });
+  window.addEventListener('keydown', (evt) => {
+    closePopup(evt, popupAdd);
+  });
+}
+
+// обработчики для попапа открытия картинок на весь экран
+const popupFullHandler = () => {
+  popupFullBtnExit.addEventListener('click', () => {
+    togglePopup(popupFull);
+  });
+  popupFull.addEventListener('click', (evt) => {
+    closePopup(evt, popupFull);
+  });
+  window.addEventListener('keydown', (evt) => {
+    closePopup(evt, popupFull)
+  });
 }
 
 // вызовы
 createStartersCard();
-
-/// добавление слушателей
-// popup изменение профиля
-buttonEdit.addEventListener('click', () => {
-  togglePopup(popupEdit);
-  editProfile();
-});
-popupEditBtnExit.addEventListener('click', () => {
-  togglePopup(popupEdit);
-});
-popupEditForm.addEventListener('submit', saveChangesPopupEdit);
-
-popupEdit.addEventListener('click', (evt) => {
-  closePopup(evt, popupEdit);
-});
-
-window.addEventListener('keydown', (evt) => {
-  closePopup(evt, popupEdit);
-});
-// слушатель кнопка добавления карточки
-// слушатели для попап добавления новой карточки
-creatNewCardBtn.addEventListener('click', () => {
-  togglePopup(popupAdd);
-});
-popupAddBtnExit.addEventListener('click', () => {
-  togglePopup(popupAdd);
-});
-popupAddForm.addEventListener('submit', (evt) => {
-  saveNewCard(evt);
-  togglePopup(popupAdd);
-});
-popupAdd.addEventListener('click', (evt) => {
-  closePopup(evt, popupAdd);
-});
-window.addEventListener('keydown', (evt) => {
-  closePopup(evt, popupAdd);
-});
-
-// слушатель для попапа full
-popupFullBtnExit.addEventListener('click', () => {
-  togglePopup(popupFull);
-});
-popupFull.addEventListener('click', (evt) => {
-  closePopup(evt, popupFull);
-});
-window.addEventListener('keydown', (evt) => {
-  closePopup(evt, popupFull)
-});
+popupEditHandler();
+popupAddHandler();
+popupFullHandler();
 
 // слушатель галлереи для работы с кнопками (like, trash) и открытия картинки на весь экран
 gallery.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('gallery__button')) {
+  if (evt.target.classList.contains('gallery__like-button')) {
     likeToggle(evt.target);
-  }
-  else if (evt.target.classList.contains('gallery__trash-button')) {
+  } else if (evt.target.classList.contains('gallery__trash-button')) {
     trashButton(evt.target)
-  }
-  else if (evt.target.classList.contains('gallery__img')) {
+  } else if (evt.target.classList.contains('gallery__img')) {
     openPopupFull(evt.target);
+    togglePopup(popupFull);
   }
 })

@@ -1,6 +1,8 @@
 .popup-form{
   padding: 0;
   max-width: 358px;
+  box-sizing: border-box;
+  max-height: 264px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
