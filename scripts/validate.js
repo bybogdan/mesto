@@ -34,11 +34,12 @@ const hasInvalidInput = (inputs) => {
 const toggleButtonState = (inputs, buttonSaveForm, inactiveButtonClass) => {
   if (hasInvalidInput(inputs)) {
     buttonSaveForm.classList.add(inactiveButtonClass);
+    buttonSaveForm.disabled = true;
   } else {
     buttonSaveForm.classList.remove(inactiveButtonClass);
+    buttonSaveForm.disabled = false;
   }
 }
-
 
 const setEventListener = (
   formElement,
@@ -81,6 +82,7 @@ const enableValidation = (
   })
 }
 
+// вызовы
 enableValidation({
   formSelector: '.popup-form',
   inputSelector: '.popup-input',

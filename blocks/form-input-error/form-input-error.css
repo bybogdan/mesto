@@ -16,3 +16,20 @@
 .form-input-error:last-of-type{
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 520px){
+  .form-input-error{
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .form-input-error{
+    margin-bottom: 2px;
+    font-size: 7px;
+    line-height: 1.2;
+  }
+  .form-input-error:last-of-type{
+    margin-bottom: 14px;
+  }
+}

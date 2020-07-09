@@ -14,11 +14,8 @@
 
 @media screen and (max-width: 400px){
   .popup-input{
-    margin-bottom: 21px;
     font-size: 12px;
     line-height: 1.25;
-  }
-  .popup-input:last-of-type{
-    margin-bottom: 35px;
+    margin-bottom: 3px;
   }
 }
