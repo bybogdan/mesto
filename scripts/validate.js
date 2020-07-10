@@ -41,6 +41,7 @@ const toggleButtonState = (inputs, buttonSaveForm, inactiveButtonClass) => {
   }
 }
 
+// очистка формы при закрытие
 const popupFormClear = ({
   popup,
   formSelector,
@@ -54,10 +55,12 @@ const popupFormClear = ({
   if (formElement) {
     const inputs = Array.from(formElement.querySelectorAll(inputSelector));
     inputs.forEach(inputElement => {
+      // вызов функции очистки инпутов
       hideInputError(formElement, inputElement, inputErrorClass, errorClass);
       inputElement.value = '';
     })
     const buttonSaveForm = formElement.querySelector(submitButtonSelector);
+    // вызов функции переключения кнопки submit
     toggleButtonState(inputs, buttonSaveForm, inactiveButtonClass)
   }
 }
@@ -83,13 +86,13 @@ const setEventListener = (
   })
 }
 
-const enableValidation = (
-  { formSelector,
-    inputSelector,
-    submitButtonSelector,
-    inactiveButtonClass,
-    inputErrorClass,
-    errorClass }) => {
+const enableValidation = ({
+  formSelector,
+  inputSelector,
+  submitButtonSelector,
+  inactiveButtonClass,
+  inputErrorClass,
+  errorClass }) => {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {

@@ -1,40 +1,11 @@
-// массив
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-// popup общий
-const popup = document.querySelector('.popup');
+// import массива
+import { initialCards } from './utils.js'
 
 // popup edit profile
 const popupEdit = document.querySelector('.popup-edit-profile');
-const popupEditContainer = document.querySelector('.popup-edit-profile__container');
 const popupEditForm = document.querySelector('.popup-edit-profile__form');
 const popupEditName = document.querySelector('.popup-edit-profile__input_text_name');
 const popupEditCaption = document.querySelector('.popup-edit-profile__input_text_caption');
-const popupEditBtnSave = document.querySelector('.popup-edit-profile__button-save');
 const popupEditBtnExit = document.querySelector('.popup-edit-profile__button-exit');
 
 // profile 
@@ -63,20 +34,6 @@ const popupAddSrc = document.querySelector('.popup-add-card__input_text_caption'
 // закрыть btn
 const popupAddBtnExit = document.querySelector('.popup-add-card__button-exit');
 
-// нужно перенести в файл валидации
-// функция очистки сообщений ошибки при закрытии
-// const errorElementClear = (popup) => {
-//   const errorElements = Array.from(popup.querySelectorAll('.form-input-error'));
-//   errorElements.forEach(errorElement => {
-//     errorElement.classList.remove('form-input-error_active');
-//   })
-//   const inputs = Array.from(popup.querySelectorAll('.popup-input'));
-//   inputs.forEach(input => {
-//     input.classList.remove('popup-input_type_error');
-//     input.value = '';
-//   })
-// }
-
 // закрытие попапы по нажатию на overlay
 const closeByOverlay = (evt) => {
   if (evt.target === evt.currentTarget) {
@@ -97,7 +54,6 @@ const closeByEscape = (evt) => {
 // function toggle every popups
 const togglePopup = (popup) => {
   popup.classList.toggle('popup_opened');
-
   // проверка для работы с кнопкй submit
   if (popup.classList.contains('popup_opened')) {
     document.addEventListener('keydown', closeByEscape);
@@ -174,7 +130,7 @@ const trashButton = (element) => {
   listItem.remove();
 }
 
-// открытие попапа на большой картинки
+// открытие попапа full-image
 const openPopupFull = (element) => {
   const parentElement = element.closest('.gallery__element');
   const elementTitle = parentElement.querySelector('.gallery__element-title');
