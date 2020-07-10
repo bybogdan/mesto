@@ -7,7 +7,9 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/gallery/gallery.css);
 @import url(../blocks/footer/footer.css);
+
 @import url(../blocks/popup/popup.css);
+
 @import url(../blocks/popup-container/popup-container.css);
 @import url(../blocks/popup-form/popups-form.css);
 @import url(../blocks/popup-title/popup-title.css);
@@ -25,3 +27,4 @@
 @import url(../blocks/popup-full-image/_opened/popup-full-image_opened.css);
 @import url(../blocks/form-input-error/form-input-error.css);
 @import url(../blocks/form-input-error/_active/form-input-error_active.css);
+@import url(../blocks/popup/_opened/popup_opened.css);

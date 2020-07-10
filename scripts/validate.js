@@ -6,7 +6,7 @@ const showInputError = (formElement, inputElement, errorMessage, inputErrorClass
   popupErrorElement.classList.add(errorClass)
 }
 
-// скрываем span  с олшибкой
+// скрываем span  с ошибкой
 const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
   const popupErrorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(inputErrorClass);
@@ -30,7 +30,7 @@ const hasInvalidInput = (inputs) => {
   })
 }
 
-// переключаем стили для инпутов
+// переключаем стили для инпутов и кнопки sumbit
 const toggleButtonState = (inputs, buttonSaveForm, inactiveButtonClass) => {
   if (hasInvalidInput(inputs)) {
     buttonSaveForm.classList.add(inactiveButtonClass);
@@ -40,6 +40,29 @@ const toggleButtonState = (inputs, buttonSaveForm, inactiveButtonClass) => {
     buttonSaveForm.disabled = false;
   }
 }
+
+const popupFormClear = ({
+  popup,
+  formSelector,
+  inputSelector,
+  submitButtonSelector,
+  inactiveButtonClass,
+  inputErrorClass,
+  errorClass }) => {
+  const formElement = popup.querySelector(formSelector);
+  // проверка что форма есть в popup
+  if (formElement) {
+    const inputs = Array.from(formElement.querySelectorAll(inputSelector));
+    inputs.forEach(inputElement => {
+      hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+      inputElement.value = '';
+    })
+    const buttonSaveForm = formElement.querySelector(submitButtonSelector);
+    toggleButtonState(inputs, buttonSaveForm, inactiveButtonClass)
+  }
+}
+
+
 
 const setEventListener = (
   formElement,
@@ -68,12 +91,12 @@ const enableValidation = (
     inputErrorClass,
     errorClass }) => {
   const forms = Array.from(document.querySelectorAll(formSelector));
-  forms.forEach((form) => {
-    form.addEventListener('submit', (evt) => {
+  forms.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     })
     setEventListener(
-      form,
+      formElement,
       inputSelector,
       submitButtonSelector,
       inactiveButtonClass,
