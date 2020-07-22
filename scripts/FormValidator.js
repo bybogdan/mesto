@@ -1,3 +1,5 @@
+// класс для работы с валидацией формы
+
 export class FormValidator {
   constructor(object, formElement) {
     this._formSelector = object.formSelector;

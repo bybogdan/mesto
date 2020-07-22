@@ -1,3 +1,5 @@
+// класс для создания карточки
+
 import { popupFull, togglePopup } from './index.js'
 
 export class Card {
