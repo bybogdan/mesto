@@ -56,16 +56,9 @@ export class FormValidator {
   }
 
   // очистка формы при закрытие
-  _popupFormClear() {
-    const inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    inputs.forEach(inputElement => {
-      // вызов метода очистки инпутов
-      this._hideInputError(this._formElement, inputElement);
-      inputElement.value = '';
-    })
-    const buttonSaveForm = this._formElement.querySelector(this._submitButtonSelector);
-    // вызов метода переключения кнопки submit
-    this._toggleButtonState(inputs, buttonSaveForm)
+  _popupFormClear(input) {
+    this._hideInputError(this._formElement, input);
+    input.value = '';
   }
 
   _setEventListener(
@@ -79,6 +72,7 @@ export class FormValidator {
         this._isValid(input);
         this._toggleButtonState(inputs, buttonSaveForm)
       })
+      this._popupFormClear(input);
     })
   }
 
@@ -86,8 +80,6 @@ export class FormValidator {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     })
-
-    this._popupFormClear();
 
     this._setEventListener(
       this._inputSelector,

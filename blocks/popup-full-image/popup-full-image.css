@@ -1,7 +1,6 @@
 @import url(./__container/popup-full-image__container.css);
 @import url(./__image/popup-full-image__image.css);
 @import url(./__title/popup-full-image__title.css);
-@import url(./__close/popup-full-image__close.css);
 
 .popup-full-image{
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;

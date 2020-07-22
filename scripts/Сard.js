@@ -1,6 +1,6 @@
 // класс для создания карточки
 
-import { popupFull, togglePopup } from './index.js'
+import { popupFull, popupFullImage, popupFullTitle, togglePopup } from './index.js'
 
 export class Card {
   constructor(title, imgLink, cardTemplate) {
@@ -55,8 +55,6 @@ export class Card {
   }
 
   _openPopupFull() {
-    const popupFullImage = document.querySelector('.popup-full-image__image');
-    const popupFullTitle = document.querySelector('.popup-full-image__title');
     popupFullImage.src = this._imgLink;
     popupFullImage.alt = this._title;
     popupFullTitle.textContent = this._title;

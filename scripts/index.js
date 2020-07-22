@@ -1,5 +1,5 @@
 // import массива
-import { initialCards } from './utils.js'
+import { initialCards } from './constants.js'
 import { Card } from './Сard.js'
 import { FormValidator } from './FormValidator.js'
 
@@ -21,6 +21,8 @@ const creatNewCardBtn = document.querySelector('.profile__add-button');
 
 // popup open full image
 const popupFull = document.querySelector('.popup-full-image');
+const popupFullImage = document.querySelector('.popup-full-image__image');
+const popupFullTitle = document.querySelector('.popup-full-image__title');
 const popupFullBtnExit = document.querySelector('.popup-full-image__close');
 
 // popup добавления новых карточек на страницу
@@ -72,7 +74,7 @@ const togglePopup = (popup) => {
         inputErrorClass: 'popup-input_type_error',
         errorClass: 'form-input-error_active'
       }, formInPopup)
-      // запуск для очистки формы при закрытиее попапа
+      // запуск для очистки формы при закрытие попапа
       popup.enableValidation();
     }
   }
@@ -159,4 +161,4 @@ forms.forEach(item => {
 })
 
 
-export { popupFull, togglePopup }
+export { popupFull, popupFullImage, popupFullTitle, togglePopup }
