@@ -1,5 +1,10 @@
 // import массива
 import { initialCards } from './utils.js'
+import { Card } from './Сard.js'
+import { FormValidator } from './FormValidator.js'
+
+// (function () {
+const gallery = document.querySelector('.gallery__elements');
 
 // popup edit profile
 const popupEdit = document.querySelector('.popup-edit-profile');
@@ -14,14 +19,8 @@ const captionProfile = document.querySelector('.profile__subtitle');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const creatNewCardBtn = document.querySelector('.profile__add-button');
 
-// доступ к template content
-const card = document.querySelector('#card').content;
-const gallery = document.querySelector('.gallery__elements');
-
 // popup open full image
 const popupFull = document.querySelector('.popup-full-image');
-const popupFullImage = document.querySelector('.popup-full-image__image');
-const popupFullTitle = document.querySelector('.popup-full-image__title');
 const popupFullBtnExit = document.querySelector('.popup-full-image__close');
 
 // popup добавления новых карточек на страницу
@@ -61,15 +60,21 @@ const togglePopup = (popup) => {
   } else {
     document.removeEventListener('keydown', closeByEscape);
     popup.removeEventListener('click', closeByOverlay);
-    popupFormClear({
-      popup: popup,
-      formSelector: '.popup-form',
-      inputSelector: '.popup-input',
-      submitButtonSelector: '.popup-save',
-      inactiveButtonClass: 'popup-save_disabled',
-      inputErrorClass: 'popup-input_type_error',
-      errorClass: 'form-input-error_active'
-    })
+
+    // проверка на наличие формы в попапе
+    const formInPopup = popup.querySelector('.popup-form')
+    if (formInPopup) {
+      popup = new FormValidator({
+        formSelector: '.popup-form',
+        inputSelector: '.popup-input',
+        submitButtonSelector: '.popup-save',
+        inactiveButtonClass: 'popup-save_disabled',
+        inputErrorClass: 'popup-input_type_error',
+        errorClass: 'form-input-error_active'
+      }, formInPopup)
+      // запуск для очистки формы при закрытиее попапа
+      popup.enableValidation();
+    }
   }
 }
 
@@ -88,68 +93,13 @@ const saveChangesPopupEdit = (evt) => {
   editProfile();
 }
 
-// функция добавления карточек в конец
-const addCardtoEnd = (card) => {
-  gallery.append(card);
-}
-
-// функция добавления карточки в начало
-const addCardtoStart = (card) => {
-  gallery.prepend(card);
-}
-
-// функция создания карточки
-const createCard = (element) => {
-  const elementCard = card.cloneNode(true);
-  const cardImg = elementCard.querySelector('.gallery__img');
-  cardImg.src = element.link;
-  cardImg.alt = element.name;
-  elementCard.querySelector('.gallery__element-title').textContent = element.name;
-  return elementCard;
-}
-
-// сохранение новой карточки
-const saveNewCard = (evt) => {
-  evt.preventDefault();
-  const newCard = {
-    name: popupAddTitle.value,
-    link: popupAddSrc.value
-  }
-  addCardtoStart(createCard(newCard));
-  popupAddForm.reset();
-}
-
-// функция переключатель лайков
-const likeToggle = (element) => {
-  element.classList.toggle('gallery__like-button_selected')
-}
-
-//функция удаления карточки
-const trashButton = (element) => {
-  const listItem = element.closest('.gallery__element');
-  listItem.remove();
-}
-
-// открытие попапа full-image
-const openPopupFull = (element) => {
-  const parentElement = element.closest('.gallery__element');
-  const elementTitle = parentElement.querySelector('.gallery__element-title');
-  popupFullImage.src = element.src;
-  popupFullImage.alt = elementTitle.textContent;
-  popupFullTitle.textContent = elementTitle.textContent;
-}
-
-// функции добавления начальных 6 карточек на страницу
-initialCards.forEach((initialCard) => {
-  addCardtoEnd(createCard(initialCard));
-})
-
 // обработчики для попапа изменения профиля
 buttonEdit.addEventListener('click', () => {
   togglePopup(popupEdit);
   buttonEdit.blur();
   editProfile();
 });
+
 popupEditBtnExit.addEventListener('click', () => {
   togglePopup(popupEdit);
 });
@@ -173,15 +123,42 @@ popupFullBtnExit.addEventListener('click', () => {
   togglePopup(popupFull);
 });
 
-// обработчики галлери для работы с кнопками (like, trash) и открытие popupFull 
-gallery.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('gallery__like-button')) {
-    likeToggle(evt.target);
-  } else if (evt.target.classList.contains('gallery__trash-button')) {
-    trashButton(evt.target)
-  } else if (evt.target.classList.contains('gallery__img')) {
-    openPopupFull(evt.target);
-    togglePopup(popupFull);
-  }
+// функции добавления начальных 6 карточек на страницу
+initialCards.forEach((initialCard) => {
+  const card = new Card(initialCard.name, initialCard.link, '#card');
+  const cardElement = card.generateCard();
+  gallery.append(cardElement);
 })
 
+// сохранение новой карточки
+const saveNewCard = (evt) => {
+  evt.preventDefault();
+  const newCard = {
+    name: popupAddTitle.value,
+    link: popupAddSrc.value
+  }
+  const card = new Card(newCard.name, newCard.link, '#card');
+  const cardElement = card.generateCard();
+  gallery.prepend(cardElement);
+  popupAddForm.reset();
+}
+
+
+// })()
+
+// работа с валидацией форм
+const forms = Array.from(document.querySelectorAll('.popup-form'));
+forms.forEach(item => {
+  item = new FormValidator({
+    formSelector: '.popup-form',
+    inputSelector: '.popup-input',
+    submitButtonSelector: '.popup-save',
+    inactiveButtonClass: 'popup-save_disabled',
+    inputErrorClass: 'popup-input_type_error',
+    errorClass: 'form-input-error_active'
+  }, item)
+
+  item.enableValidation();
+})
+
+export { popupFull, togglePopup }
