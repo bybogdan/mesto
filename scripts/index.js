@@ -2,6 +2,7 @@
 import { initialCards } from './constants.js'
 import { Card } from './Сard.js'
 import { FormValidator } from './FormValidator.js'
+import { Section } from './Section.js'
 
 // список куда добавляются карточки
 const gallery = document.querySelector('.gallery__elements');
@@ -125,12 +126,19 @@ popupFullBtnExit.addEventListener('click', () => {
   togglePopup(popupFull);
 });
 
-// функции добавления начальных 6 карточек на страницу
-initialCards.forEach((initialCard) => {
-  const card = new Card(initialCard.name, initialCard.link, '#card');
-  const cardElement = card.generateCard();
-  gallery.append(cardElement);
-})
+// создание экземпляра section
+const cardsList = new Section({
+  items: initialCards,
+  renderer: ({ name, link }) => {
+    const card = new Card(name, link, '#card');
+    const cardElement = card.generateCard();
+    cardsList.addItem(cardElement)
+  }
+},
+  '.gallery__elements'
+)
+cardsList.renderItems()
+
 
 // сохранение новой карточки
 const saveNewCard = (evt) => {
