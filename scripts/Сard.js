@@ -1,12 +1,13 @@
 // класс для создания карточки
 
-import { popupFull, popupFullImage, popupFullTitle, togglePopup } from './index.js'
+// import { popupFull, popupFullImage, popupFullTitle, togglePopup } from './index.js'
 
 export class Card {
-  constructor(title, imgLink, cardTemplate) {
+  constructor(title, imgLink, cardTemplate, handleCardClick) {
     this._title = title;
     this._imgLink = imgLink;
     this._cardTemplate = cardTemplate
+    this._handleCardClick = handleCardClick
   }
 
   // функция получения разметки карточки
@@ -41,8 +42,10 @@ export class Card {
       this._deleteCard()
     })
     this._element.querySelector('.gallery__img').addEventListener('click', () => {
-      this._openPopupFull();
-      togglePopup(popupFull);
+      // console.log(popupFullImage, popupFullTitle, this._title, this._imgLink)
+      this._handleCardClick({ title: this._title, imgLink: this._imgLink })
+      // this._openPopupFull();
+      // togglePopup(popupFull);
     })
   }
 
@@ -54,10 +57,10 @@ export class Card {
     this._element.remove();
   }
 
-  _openPopupFull() {
-    popupFullImage.src = this._imgLink;
-    popupFullImage.alt = this._title;
-    popupFullTitle.textContent = this._title;
-  }
+  // _openPopupFull() {
+  //   popupFullImage.src = this._imgLink;
+  //   popupFullImage.alt = this._title;
+  //   popupFullTitle.textContent = this._title;
+  // }
 
 }
