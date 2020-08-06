@@ -8,16 +8,16 @@ import { PopupWithImage } from '../components/PopupWithImage.js'
 import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js';
 
-forms.forEach(item => {
-  item = new FormValidator({
+forms.forEach(form => {
+  form = new FormValidator({
     formSelector: '.popup-form',
     inputSelector: '.popup-input',
     submitButtonSelector: '.popup-save',
     inactiveButtonClass: 'popup-save_disabled',
     inputErrorClass: 'popup-input_type_error',
     errorClass: 'form-input-error_active'
-  }, item)
-  item.enableValidation();
+  }, form)
+  form.enableValidation();
 })
 
 const cards = new Section({
@@ -40,7 +40,20 @@ const popupEdit = new PopupWithForm('.popup-edit-profile', (formPopup) => {
   const userInputs = popupEdit._getInputValues(formPopup)
   const userInputsValue = { newName: userInputs[0].value, newAbout: userInputs[1].value }
   userInfo.setUserInfo(userInputsValue)
-})
+},
+  (formPopup) => {
+    let form = new FormValidator({
+      formSelector: '.popup-form',
+      inputSelector: '.popup-input',
+      submitButtonSelector: '.popup-save',
+      inactiveButtonClass: 'popup-save_disabled',
+      inputErrorClass: 'popup-input_type_error',
+      errorClass: 'form-input-error_active'
+    }, formPopup)
+    // запуск для очистки формы при закрытие попапа
+    form.enableValidation();
+  }
+)
 
 buttonEdit.addEventListener('click', () => {
   userInfo.getUserInfo({ name: nameProfile.textContent, caption: captionProfile.textContent })
@@ -66,7 +79,20 @@ const popupAdd = new PopupWithForm('.popup-add-card', (formPopup) => {
   }, '.gallery__elements')
 
   prependNewCard.rendererItems()
-})
+},
+  (formPopup) => {
+    let form = new FormValidator({
+      formSelector: '.popup-form',
+      inputSelector: '.popup-input',
+      submitButtonSelector: '.popup-save',
+      inactiveButtonClass: 'popup-save_disabled',
+      inputErrorClass: 'popup-input_type_error',
+      errorClass: 'form-input-error_active'
+    }, formPopup)
+    // запуск для очистки формы при закрытие попапа
+    form.enableValidation();
+  }
+)
 
 creatNewCardBtn.addEventListener('click', () => {
   popupAdd.open()
