@@ -12,7 +12,6 @@ export class Popup {
 
   close() {
     this._popup.classList.remove('popup_opened');
-
     // снимаем слушатели
     document.removeEventListener('keydown', this._handleEscClose)
     this._popup.addEventListener('click', this._handleOverlayClose)

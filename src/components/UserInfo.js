@@ -1,4 +1,4 @@
-import { popupEditName, popupEditCaption } from './index.js'
+import { popupEditNameInput, popupEditCaptionInput } from '../utils/constants.js'
 
 export class UserInfo {
   constructor({ userTitleSelector, userSubtitleSelector }) {
@@ -7,8 +7,8 @@ export class UserInfo {
   }
 
   getUserInfo({ name, caption }) {
-    popupEditName.value = name
-    popupEditCaption.value = caption
+    popupEditNameInput.value = name
+    popupEditCaptionInput.value = caption
   }
 
   setUserInfo({ newName, newAbout }) {
