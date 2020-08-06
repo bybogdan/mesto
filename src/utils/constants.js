@@ -1,5 +1,5 @@
 // массив c исходноми карточками
-const initialCards = [
+export const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -25,5 +25,12 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-export { initialCards };
+export const forms = Array.from(document.querySelectorAll('.popup-form'));
+export const popupEditNameInput = document.querySelector('.popup-edit-profile__input_text_name');
+export const popupEditCaptionInput = document.querySelector('.popup-edit-profile__input_text_caption');
+export const nameProfile = document.querySelector('.profile__title');
+export const captionProfile = document.querySelector('.profile__subtitle');
+export const buttonEdit = document.querySelector('.profile__edit-button');
+export const creatNewCardBtn = document.querySelector('.profile__add-button');
+export const popupFullImage = document.querySelector('.popup-full-image__image');
+export const popupFullTitle = document.querySelector('.popup-full-image__title');

@@ -1,12 +1,10 @@
 // класс для создания карточки
-
-import { popupFull, popupFullImage, popupFullTitle, togglePopup } from './index.js'
-
 export class Card {
-  constructor(title, imgLink, cardTemplate) {
+  constructor(title, imgLink, cardTemplate, handleCardClick) {
     this._title = title;
     this._imgLink = imgLink;
     this._cardTemplate = cardTemplate
+    this._handleCardClick = handleCardClick
   }
 
   // функция получения разметки карточки
@@ -16,7 +14,6 @@ export class Card {
       .content
       .querySelector('.gallery__element')
       .cloneNode(true);
-
     return cardElement;
   }
 
@@ -27,9 +24,7 @@ export class Card {
     cardImg.src = this._imgLink;
     cardImg.alt = this._title;
     this._element.querySelector('.gallery__element-title').textContent = this._title;
-
     this._setEventListeners();
-
     return this._element;
   }
 
@@ -41,8 +36,7 @@ export class Card {
       this._deleteCard()
     })
     this._element.querySelector('.gallery__img').addEventListener('click', () => {
-      this._openPopupFull();
-      togglePopup(popupFull);
+      this._handleCardClick({ title: this._title, imgLink: this._imgLink })
     })
   }
 
@@ -53,11 +47,4 @@ export class Card {
   _deleteCard() {
     this._element.remove();
   }
-
-  _openPopupFull() {
-    popupFullImage.src = this._imgLink;
-    popupFullImage.alt = this._title;
-    popupFullTitle.textContent = this._title;
-  }
-
 }
