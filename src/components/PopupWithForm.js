@@ -1,10 +1,10 @@
 import { Popup } from './Popup.js'
-import { FormValidator } from './FormValidator.js'
 
 export class PopupWithForm extends Popup {
-  constructor(selector, callbackFormSubmit) {
+  constructor(selector, callbackFormSubmit, clearFormValidation) {
     super(selector)
     this.callbackFormSubmit = callbackFormSubmit
+    this.clearFormValidation = clearFormValidation
     this._saveChange = this._saveChange.bind(this)
     this._formPopup = this._popup.querySelector('.popup-form')
   }
@@ -30,17 +30,7 @@ export class PopupWithForm extends Popup {
     // форма должна сбрасываться
     this._formPopup.removeEventListener('submit', this._saveChange)
     this._formPopup.reset()
-    let removeValidationMessage = this._popup
-    removeValidationMessage = new FormValidator({
-      formSelector: '.popup-form',
-      inputSelector: '.popup-input',
-      submitButtonSelector: '.popup-save',
-      inactiveButtonClass: 'popup-save_disabled',
-      inputErrorClass: 'popup-input_type_error',
-      errorClass: 'form-input-error_active'
-    }, this._formPopup)
-    // запуск для очистки формы при закрытие попапа
-    removeValidationMessage.enableValidation();
+    this.clearFormValidation(this._formPopup)
     super.close()
   }
 
