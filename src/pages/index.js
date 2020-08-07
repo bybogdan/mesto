@@ -1,6 +1,6 @@
 // import массива
 import './index.css'
-import { initialCards, forms, nameProfile, captionProfile, buttonEdit, creatNewCardBtn, popupFullImage, popupFullTitle } from '../utils/constants.js'
+import { initialCards, forms, defaultFormConfig, nameProfile, captionProfile, buttonEdit, creatNewCardBtn, popupFullImage, popupFullTitle, popupEditNameInput, popupEditCaptionInput } from '../utils/constants.js'
 import { Card } from '../components/Сard.js'
 import { FormValidator } from '../components/FormValidator.js'
 import { Section } from '../components/Section.js'
@@ -9,14 +9,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js';
 
 forms.forEach(form => {
-  form = new FormValidator({
-    formSelector: '.popup-form',
-    inputSelector: '.popup-input',
-    submitButtonSelector: '.popup-save',
-    inactiveButtonClass: 'popup-save_disabled',
-    inputErrorClass: 'popup-input_type_error',
-    errorClass: 'form-input-error_active'
-  }, form)
+  form = new FormValidator(defaultFormConfig, form)
   form.enableValidation();
 })
 
@@ -25,8 +18,8 @@ const cards = new Section({
   renderer: ({ name, link }) => {
     const card = new Card(name, link, '#card',
       ({ title, imgLink }) => {
-        const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle, title, imgLink)
-        popupFull.open()
+        const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle)
+        popupFull.open(title, imgLink)
       })
     const cardElement = card.generateCard();
     cards.addItem(cardElement)
@@ -35,43 +28,40 @@ const cards = new Section({
 
 cards.rendererItems()
 
-const userInfo = new UserInfo({ userTitleSelector: '.profile__title', userSubtitleSelector: '.profile__subtitle' })
-const popupEdit = new PopupWithForm('.popup-edit-profile', (formPopup) => {
-  const userInputs = popupEdit._getInputValues(formPopup)
-  const userInputsValue = { newName: userInputs[0].value, newAbout: userInputs[1].value }
-  userInfo.setUserInfo(userInputsValue)
+const userInfo = new UserInfo({
+  userTitleSelector: '.profile__title', userSubtitleSelector: '.profile__subtitle'
+}, popupEditNameInput, popupEditCaptionInput)
+// возвращщенный результат вызова метода _getInputValues записывается в inputsValues
+const popupEdit = new PopupWithForm('.popup-edit-profile', (inputsValues) => {
+  // убран вызов метода _getInputValues внутри данной функции (callback)
+  const { name: newName, caption: newAbout } = inputsValues
+  userInfo.changeUserInfo({ newName, newAbout })
 },
   (formPopup) => {
-    let form = new FormValidator({
-      formSelector: '.popup-form',
-      inputSelector: '.popup-input',
-      submitButtonSelector: '.popup-save',
-      inactiveButtonClass: 'popup-save_disabled',
-      inputErrorClass: 'popup-input_type_error',
-      errorClass: 'form-input-error_active'
-    }, formPopup)
+    const form = new FormValidator(defaultFormConfig, formPopup)
     // запуск для очистки формы при закрытие попапа
     form.enableValidation();
   }
 )
 
 buttonEdit.addEventListener('click', () => {
-  userInfo.getUserInfo({ name: nameProfile.textContent, caption: captionProfile.textContent })
+  userInfo.setUserInfo(userInfo.getUserInfo({ name: nameProfile.textContent, caption: captionProfile.textContent }))
   popupEdit.open()
   buttonEdit.blur();
 })
-
-const popupAdd = new PopupWithForm('.popup-add-card', (formPopup) => {
-  const inputs = popupAdd._getInputValues(formPopup)
-  const newCard = { name: inputs[0].value, link: inputs[1].value }
+// возвращщенный результат вызова метода _getInputValues записывается в inputsValues
+const popupAdd = new PopupWithForm('.popup-add-card', (inputsValues) => {
+  // убран вызов метода _getInputValues внутри данной функции (callback)
+  const { name: name, caption: link } = inputsValues
+  const newCard = { name, link }
   const newCards = [newCard];
   const prependNewCard = new Section({
     items: newCards,
     renderer: ({ name, link }) => {
       const card = new Card(name, link, '#card',
         ({ title, imgLink }) => {
-          const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle, title, imgLink)
-          popupFull.open()
+          const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle)
+          popupFull.open(title, imgLink)
         })
       const cardElement = card.generateCard();
       prependNewCard.addItemToStart(cardElement)
@@ -81,14 +71,7 @@ const popupAdd = new PopupWithForm('.popup-add-card', (formPopup) => {
   prependNewCard.rendererItems()
 },
   (formPopup) => {
-    let form = new FormValidator({
-      formSelector: '.popup-form',
-      inputSelector: '.popup-input',
-      submitButtonSelector: '.popup-save',
-      inactiveButtonClass: 'popup-save_disabled',
-      inputErrorClass: 'popup-input_type_error',
-      errorClass: 'form-input-error_active'
-    }, formPopup)
+    const form = new FormValidator(defaultFormConfig, formPopup)
     // запуск для очистки формы при закрытие попапа
     form.enableValidation();
   }

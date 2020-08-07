@@ -12,16 +12,16 @@ export class Popup {
 
   close() {
     this._popup.classList.remove('popup_opened');
-    // снимаем слушатели
+    // снимаем слушатели с esc
     document.removeEventListener('keydown', this._handleEscClose)
-    this._popup.addEventListener('click', this._handleOverlayClose)
+    // снимаем слуашетя нажатия на overlay с попапа 
+    this._popup.removeEventListener('click', this._handleOverlayClose)
   }
 
   _handleEscClose(evt) {
     // закрытие по нажатия на esc
     if (evt.key === 'Escape') {
       this.close()
-      document.removeEventListener('keydown', this._handleEscClose)
     }
   }
 
@@ -29,7 +29,6 @@ export class Popup {
     // закрытие по нажатия на overlay
     if (evt.target === evt.currentTarget) {
       this.close()
-      this._popup.removeEventListener('click', this._handleOverlayClose)
     }
   }
 

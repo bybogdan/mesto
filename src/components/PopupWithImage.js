@@ -1,19 +1,17 @@
 import { Popup } from './Popup.js'
 
 export class PopupWithImage extends Popup {
-  constructor(selector, popupFullImage, popupFullTitle, title, imgLink) {
+  constructor(selector, popupFullImage, popupFullTitle) {
     super(selector)
     this._popupFullImage = popupFullImage
     this._popupFullTitle = popupFullTitle
-    this._title = title
-    this._imgLink = imgLink
   }
 
-  open() {
+  open(title, imgLink) {
     // вставлять картинку и src в попапа с большой картинкой
-    this._popupFullImage.src = this._imgLink;
-    this._popupFullImage.alt = this._title;
-    this._popupFullTitle.textContent = this._title;
+    this._popupFullImage.src = imgLink;
+    this._popupFullImage.alt = title;
+    this._popupFullTitle.textContent = title;
     super.open()
   }
 }
