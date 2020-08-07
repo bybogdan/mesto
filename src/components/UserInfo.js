@@ -1,18 +1,24 @@
-import { popupEditNameInput, popupEditCaptionInput } from '../utils/constants.js'
-
 export class UserInfo {
-  constructor({ userTitleSelector, userSubtitleSelector }) {
+  constructor({ userTitleSelector, userSubtitleSelector }, popupEditNameInput, popupEditCaptionInput) {
     this.userTitle = document.querySelector(userTitleSelector)
     this.userSubtitle = document.querySelector(userSubtitleSelector)
+    this._popupEditNameInput = popupEditNameInput
+    this._popupEditCaptionInput = popupEditCaptionInput
   }
 
   getUserInfo({ name, caption }) {
-    popupEditNameInput.value = name
-    popupEditCaptionInput.value = caption
+    return {
+      newName: name,
+      newAbout: caption
+    }
   }
 
   setUserInfo({ newName, newAbout }) {
-    // принимает новые данные пользователя и возвращает их на страницу
+    this._popupEditNameInput.value = newName
+    this._popupEditCaptionInput.value = newAbout
+  }
+
+  changeUserInfo({ newName, newAbout }) {
     this.userTitle.textContent = newName
     this.userSubtitle.textContent = newAbout
   }

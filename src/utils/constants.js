@@ -25,6 +25,14 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+export const defaultFormConfig = {
+  formSelector: '.popup-form',
+  inputSelector: '.popup-input',
+  submitButtonSelector: '.popup-save',
+  inactiveButtonClass: 'popup-save_disabled',
+  inputErrorClass: 'popup-input_type_error',
+  errorClass: 'form-input-error_active'
+}
 export const forms = Array.from(document.querySelectorAll('.popup-form'));
 export const popupEditNameInput = document.querySelector('.popup-edit-profile__input_text_name');
 export const popupEditCaptionInput = document.querySelector('.popup-edit-profile__input_text_caption');

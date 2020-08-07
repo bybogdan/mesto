@@ -7,15 +7,22 @@ export class PopupWithForm extends Popup {
     this.clearFormValidation = clearFormValidation
     this._saveChange = this._saveChange.bind(this)
     this._formPopup = this._popup.querySelector('.popup-form')
+    this._formValues = {}
   }
 
   _getInputValues() {
     const inputs = this._formPopup.querySelectorAll('.popup-input')
-    return inputs
+    inputs.forEach(input => {
+      this._formValues[input.name] = input.value
+    })
+    // возращает объект
+    return this._formValues
   }
 
   _saveChange() {
-    this.callbackFormSubmit(this._formPopup)
+    // в callback функцию передается значение вызова метода _getInputValues
+    // теперь метод _getInputValues используется в проекте))
+    this.callbackFormSubmit(this._getInputValues())
     this.close()
     this._formPopup.reset()
   }
