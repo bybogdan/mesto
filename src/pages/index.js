@@ -1,6 +1,19 @@
 // import массива
 import './index.css'
-import { initialCards, forms, defaultFormConfig, nameProfile, captionProfile, buttonEdit, creatNewCardBtn, popupFullImage, popupFullTitle, popupEditNameInput, popupEditCaptionInput } from '../utils/constants.js'
+import {
+  initialCards,
+  forms,
+  defaultFormConfig,
+  nameProfile,
+  captionProfile,
+  buttonEdit,
+  creatNewCardBtn,
+  popupFullImage,
+  popupFullTitle,
+  popupEditNameInput,
+  popupEditCaptionInput,
+  buttonEditAvatar
+} from '../utils/constants.js'
 import { Card } from '../components/Сard.js'
 import { FormValidator } from '../components/FormValidator.js'
 import { Section } from '../components/Section.js'
@@ -82,3 +95,14 @@ creatNewCardBtn.addEventListener('click', () => {
   creatNewCardBtn.blur()
 })
 
+const popupEditAvatar = new PopupWithForm('.popup-edit-avatar',
+  () => console.log('open text load'),
+  (formPopup) => {
+    const form = new FormValidator(defaultFormConfig, formPopup)
+    // запуск для очистки формы при закрытие попапа
+    form.enableValidation();
+  })
+buttonEditAvatar.addEventListener('click', () => {
+  popupEditAvatar.open()
+  buttonEditAvatar.blur()
+}) 

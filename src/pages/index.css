@@ -19,6 +19,8 @@
 @import url(../blocks/popup-save/_disabled/popup-save_disabled.css);
 @import url(../blocks/popup-exit/popup-exit.css);
 
+@import url(../blocks/popup-edit-avatar/popup-edit-avatar.css);
+
 @import url(../blocks/popup-edit-profile/popup-edit-profile.css);
 
 @import url(../blocks/popup-add-card/popup-add-card.css);
