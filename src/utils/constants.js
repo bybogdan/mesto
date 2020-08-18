@@ -42,3 +42,6 @@ export const buttonEdit = document.querySelector('.profile__edit-button');
 export const creatNewCardBtn = document.querySelector('.profile__add-button');
 export const popupFullImage = document.querySelector('.popup-full-image__image');
 export const popupFullTitle = document.querySelector('.popup-full-image__title');
+
+export const buttonEditAvatar = document.querySelector('.profile__avatar-button')
+export const popupEditAvatarInput = document.querySelector('.popup-edit-avatar__input_text_caption')

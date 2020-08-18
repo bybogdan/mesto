@@ -20,9 +20,12 @@ export class PopupWithForm extends Popup {
   }
 
   _saveChange() {
-    // в callback функцию передается значение вызова метода _getInputValues
-    // теперь метод _getInputValues используется в проекте))
+
+    //заготовка на время загрузки data
+    //const saveButton = this._popup.querySelector('.popup-save')
+    //saveButton.textContent = `${saveButton.textContent}...`
     this.callbackFormSubmit(this._getInputValues())
+
     this.close()
     this._formPopup.reset()
   }
