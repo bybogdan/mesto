@@ -12,7 +12,7 @@ import {
   popupFullTitle,
   popupEditNameInput,
   popupEditCaptionInput,
-  buttonEditAvatar
+  buttonEditAvatar,
 } from '../utils/constants.js'
 import { Card } from '../components/Сard.js'
 import { FormValidator } from '../components/FormValidator.js'
@@ -33,7 +33,8 @@ const cards = new Section({
       ({ title, imgLink }) => {
         const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle)
         popupFull.open(title, imgLink)
-      })
+      },
+    )
     const cardElement = card.generateCard();
     cards.addItem(cardElement)
   }
@@ -75,7 +76,26 @@ const popupAdd = new PopupWithForm('.popup-add-card', (inputsValues) => {
         ({ title, imgLink }) => {
           const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle)
           popupFull.open(title, imgLink)
-        })
+        },
+        (deleteCard) => {
+          console.log('click delete button')
+          const popupConfirmDeleteCard = new PopupWithForm('.popup-confirm-delete',
+            () => {
+              console.log('in popup with form second argument')
+              deleteCard.call(card)
+            },
+            (formPopup) => {
+              const form = new FormValidator(defaultFormConfig, formPopup)
+              // запуск для очистки формы при закрытие попапа
+              form.enableValidation();
+            }
+          )
+          popupConfirmDeleteCard.open()
+
+        },
+        //true - указывает что эту карточку создал я и в последствии ее можно удалить (флаг)
+        true
+      )
       const cardElement = card.generateCard();
       prependNewCard.addItemToStart(cardElement)
     }

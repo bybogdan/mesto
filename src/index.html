@@ -41,6 +41,16 @@
       <p class="footer__text">&#169; 2020 Mesto Russia</p>
     </footer>
 
+    <section id="popup-confirm-delete" class="popup-confirm-delete popup">
+      <div class="popup-confirm-delete__container popup-container">
+        <form action="URL" name="form" method="post" class="popup-confirm-delete__form popup-form" novalidate>
+          <h2 class="popup-confirm-delete__title popup-title">Вы уверены?</h2>
+          <button type="submit" class="popup-confirm-delete__button-save popup-save">Да</button>
+        </form>
+        <button type="button" class="popup-confirm-delete__button-exit popup-exit"></button>
+      </div>
+    </section>
+
     <section id="popup-edit-avatar" class="popup-edit-avatar popup">
       <div class="popup-edit-avatar__container popup-container">
         <form action="URL" name="form" method="post" class="popup-edit-avatar__form popup-form" novalidate>
@@ -85,7 +95,7 @@
             class="popup-add-card__input popup-add-card__input_text_caption popup-input"
             placeholder="Ссылка на картинку" required />
           <span id="popupAddCardInputCaption-error" class="form-input-error"></span>
-          <button type="submit" class="popup-add-card__button-save popup-save">Сохранить</button>
+          <button type="submit" class="popup-add-card__button-save popup-save">Создать</button>
         </form>
         <button type="button" class="popup-add-card__button-exit popup-exit"></button>
       </div>
@@ -107,7 +117,10 @@
       <img src="#" alt="#" class="gallery__img" />
       <div class="gallery__content">
         <h2 class="gallery__element-title"></h2>
-        <button type="button" class="gallery__like-button"></button>
+        <div class="gallery__likes">
+          <button type="button" class="gallery__like-button"></button>
+          <span class="gallery__like-counter">0</span>
+        </div>
       </div>
     </li>
   </template>

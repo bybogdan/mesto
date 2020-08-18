@@ -1,10 +1,12 @@
 // класс для создания карточки
 export class Card {
-  constructor(title, imgLink, cardTemplate, handleCardClick) {
+  constructor(title, imgLink, cardTemplate, handleCardClick, confirmDeleteCard, ownCard) {
     this._title = title;
     this._imgLink = imgLink;
     this._cardTemplate = cardTemplate
     this._handleCardClick = handleCardClick
+    this.confirmDeleteCard = confirmDeleteCard
+    this.ownCard = ownCard
   }
 
   // функция получения разметки карточки
@@ -20,6 +22,10 @@ export class Card {
   // добалвяем данные в разметку
   generateCard() {
     this._element = this._getTemplate();
+    // проверка, чтобы можно было удалять, только свои карточки
+    if (!this.ownCard) {
+      this._element.querySelector('.gallery__trash-button').style.display = 'none'
+    }
     const cardImg = this._element.querySelector('.gallery__img');
     cardImg.src = this._imgLink;
     cardImg.alt = this._title;
@@ -33,7 +39,8 @@ export class Card {
       this._likeToggle();
     })
     this._element.querySelector('.gallery__trash-button').addEventListener('click', () => {
-      this._deleteCard()
+      //this._deleteCard
+      this.confirmDeleteCard(this._deleteCard)
     })
     this._element.querySelector('.gallery__img').addEventListener('click', () => {
       this._handleCardClick({ title: this._title, imgLink: this._imgLink })
@@ -41,7 +48,16 @@ export class Card {
   }
 
   _likeToggle() {
-    this._element.querySelector('.gallery__like-button').classList.toggle('gallery__like-button_selected')
+    const likeButton = this._element.querySelector('.gallery__like-button')
+    const likeCounter = this._element.querySelector('.gallery__like-counter')
+    likeButton.classList.toggle('gallery__like-button_selected')
+    if (likeButton.classList.contains('gallery__like-button_selected')) {
+      likeCounter.textContent = parseInt(likeCounter.textContent) + 1
+    }
+    else {
+      likeCounter.textContent = parseInt(likeCounter.textContent) - 1
+    }
+
   }
 
   _deleteCard() {

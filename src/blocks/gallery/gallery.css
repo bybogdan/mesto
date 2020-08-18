@@ -4,8 +4,10 @@
 @import url(./__img/gallery__img.css);
 @import url(./__content/gallery__content.css);
 @import url(./__element-title/gallery__element-title.css);
+@import url(./__likes/gallery__likes.css);
 @import url(./__like-button/gallery__like-button.css);
 @import url(./__like-button/_selected/gallery__like-button_selected.css);
+@import url(./__like-counter/gallery__like-counter.css);
 
 .gallery {
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
