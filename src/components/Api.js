@@ -1,6 +1,6 @@
 // Токен: ab977504-63f5-4a6b-b9b1-a67a5dd53592
 // Идентификатор группы: cohort-14
-
+// id b2063da6876b74f04be31a71
 
 export class Api {
   constructor({ userTitleSelector, userSubtitleSelector, userAvatarSelector }) {
@@ -23,8 +23,6 @@ export class Api {
         this.userTitle.textContent = user.name
         this.userSubtitle.textContent = user.about
         this.userAvatar.src = user.avatar
-        // console.log(user)
-        // id b2063da6876b74f04be31a71
       })
   }
 
@@ -42,6 +40,19 @@ export class Api {
     })
   }
 
+  editUserAvatar(avatar) {
+    fetch(`${this.urlStart}${this.idGroup}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar
+      })
+    })
+  }
+
   loadCards() {
     return fetch(`${this.urlStart}${this.idGroup}/cards`, {
       headers: {
@@ -50,7 +61,6 @@ export class Api {
     })
       .then(res => res.json())
       .then(cards => {
-        // console.log(cards)
         return cards
       })
       .catch(err => console.log(`Загрузка завершилась не удачно ${err}`))
@@ -64,15 +74,34 @@ export class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: name,
-        link: link
+        name,
+        link
       })
     })
   }
 
   removeCard(cardId) {
-    console.log(cardId)
     fetch(`${this.urlStart}${this.idGroup}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this.token,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  addLike(cardId) {
+    fetch(`${this.urlStart}${this.idGroup}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: {
+        authorization: this.token,
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  deleteLike(cardId) {
+    fetch(`${this.urlStart}${this.idGroup}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this.token,

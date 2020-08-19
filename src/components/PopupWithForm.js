@@ -20,14 +20,18 @@ export class PopupWithForm extends Popup {
   }
 
   _saveChange() {
-
-    //заготовка на время загрузки data
-    //const saveButton = this._popup.querySelector('.popup-save')
-    //saveButton.textContent = `${saveButton.textContent}...`
-    this.callbackFormSubmit(this._getInputValues())
-
-    this.close()
-    this._formPopup.reset()
+    const promiseSaveData = new Promise((resolve, reject) => {
+      const saveButton = this._formPopup.querySelector('.popup-save')
+      saveButton.textContent = `${saveButton.textContent}...`
+      resolve(this.callbackFormSubmit(this._getInputValues()))
+    })
+    promiseSaveData
+      .then(() => {
+        const saveButton = this._formPopup.querySelector('.popup-save')
+        saveButton.textContent = saveButton.textContent.slice(0, -3)
+        this.close()
+        this._formPopup.reset()
+      })
   }
 
   setEventListeners() {

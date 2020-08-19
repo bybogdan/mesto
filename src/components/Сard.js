@@ -1,6 +1,6 @@
 // класс для создания карточки
 export class Card {
-  constructor(title, imgLink, likes, owner, cardId, cardTemplate, handleCardClick, confirmDeleteCard) {
+  constructor(title, imgLink, likes, owner, cardId, cardTemplate, handleCardClick, confirmDeleteCard, addLike, deleteLike) {
     this._title = title
     this._imgLink = imgLink
     this.likes = likes
@@ -9,6 +9,8 @@ export class Card {
     this._cardTemplate = cardTemplate
     this._handleCardClick = handleCardClick
     this.confirmDeleteCard = confirmDeleteCard
+    this.addLike = addLike
+    this.deleteLike = deleteLike
     this.myId = 'b2063da6876b74f04be31a71'
   }
 
@@ -33,6 +35,15 @@ export class Card {
     cardImg.src = this._imgLink;
     cardImg.alt = this._title;
     this._element.querySelector('.gallery__element-title').textContent = this._title;
+    if (this.likes) {
+      this.likes.some(like => {
+        if (this.myId === like._id) {
+          this._element.querySelector('.gallery__like-button').classList.add('gallery__like-button_selected')
+        }
+      })
+    }
+
+
     this._element.querySelector('.gallery__like-counter').textContent = this.likes ? this.likes.length : 0
     this._setEventListeners();
     return this._element;
@@ -43,7 +54,6 @@ export class Card {
       this._likeToggle();
     })
     this._element.querySelector('.gallery__trash-button').addEventListener('click', () => {
-      //this._deleteCard
       this.confirmDeleteCard(this._deleteCard)
     })
     this._element.querySelector('.gallery__img').addEventListener('click', () => {
@@ -57,9 +67,11 @@ export class Card {
     likeButton.classList.toggle('gallery__like-button_selected')
     if (likeButton.classList.contains('gallery__like-button_selected')) {
       likeCounter.textContent = parseInt(likeCounter.textContent) + 1
+      this.addLike(this)
     }
     else {
       likeCounter.textContent = parseInt(likeCounter.textContent) - 1
+      this.deleteLike(this)
     }
 
   }

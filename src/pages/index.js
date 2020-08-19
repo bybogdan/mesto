@@ -6,6 +6,7 @@ import {
   defaultFormConfig,
   nameProfile,
   captionProfile,
+  avatarProfile,
   buttonEdit,
   creatNewCardBtn,
   popupFullImage,
@@ -63,9 +64,14 @@ loadCardsFromServer.then(cardsFromServer => {
           popupFull.open(title, imgLink)
         },
         (deleteCard) => {
-          // console.log(card)
           deleteOwnCard(deleteCard, card)
         },
+        (cardForLike) => {
+          api.addLike(cardForLike.cardId)
+        },
+        (cardForLike) => {
+          api.deleteLike(cardForLike.cardId)
+        }
       )
       const cardElement = card.generateCard();
       cards.addItem(cardElement)
@@ -115,6 +121,12 @@ const popupAdd = new PopupWithForm('.popup-add-card', (inputsValues) => {
         (deleteCard) => {
           deleteOwnCard(deleteCard, card)
         },
+        (cardForLike) => {
+          api.addLike(cardForLike.cardId)
+        },
+        (cardForLike) => {
+          api.deleteLike(cardForLike.cardId)
+        }
       )
       const cardElement = card.generateCard();
       prependNewCard.addItemToStart(cardElement)
@@ -136,7 +148,10 @@ creatNewCardBtn.addEventListener('click', () => {
 })
 
 const popupEditAvatar = new PopupWithForm('.popup-edit-avatar',
-  () => console.log('open text load'),
+  (newAvatar) => {
+    api.editUserAvatar(newAvatar.caption)
+    avatarProfile.src = newAvatar.caption
+  },
   (formPopup) => {
     const form = new FormValidator(defaultFormConfig, formPopup)
     // запуск для очистки формы при закрытие попапа
