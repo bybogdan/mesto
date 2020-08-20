@@ -3,31 +3,29 @@
 // id b2063da6876b74f04be31a71
 
 export class Api {
-  constructor({ userTitleSelector, userSubtitleSelector, userAvatarSelector }) {
+  constructor() {
     this.token = 'ab977504-63f5-4a6b-b9b1-a67a5dd53592'
     this.idGroup = 'cohort-14'
     this.urlStart = 'https://mesto.nomoreparties.co/v1/'
-    this.userTitle = document.querySelector(userTitleSelector)
-    this.userSubtitle = document.querySelector(userSubtitleSelector)
-    this.userAvatar = document.querySelector(userAvatarSelector)
   }
 
   getUserInfo() {
-    fetch(`${this.urlStart}${this.idGroup}/users/me`, {
+    return fetch(`${this.urlStart}${this.idGroup}/users/me`, {
       headers: {
         authorization: this.token
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
       .then(user => {
-        this.userTitle.textContent = user.name
-        this.userSubtitle.textContent = user.about
-        this.userAvatar.src = user.avatar
+        return user
       })
   }
 
   editUserInfo({ newName, newAbout }) {
-    fetch(`${this.urlStart}${this.idGroup}/users/me`, {
+    return fetch(`${this.urlStart}${this.idGroup}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this.token,
@@ -38,10 +36,15 @@ export class Api {
         about: newAbout
       })
     })
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(res => res)
   }
 
   editUserAvatar(avatar) {
-    fetch(`${this.urlStart}${this.idGroup}/users/me/avatar`, {
+    return fetch(`${this.urlStart}${this.idGroup}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: this.token,
@@ -51,6 +54,11 @@ export class Api {
         avatar
       })
     })
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(res => res)
   }
 
   loadCards() {
@@ -59,7 +67,10 @@ export class Api {
         authorization: this.token
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
       .then(cards => {
         return cards
       })
@@ -67,7 +78,7 @@ export class Api {
   }
 
   addCard({ name, link }) {
-    fetch(`${this.urlStart}${this.idGroup}/cards`, {
+    return fetch(`${this.urlStart}${this.idGroup}/cards`, {
       method: 'POST',
       headers: {
         authorization: this.token,
@@ -78,35 +89,55 @@ export class Api {
         link
       })
     })
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(res => res)
   }
 
   removeCard(cardId) {
-    fetch(`${this.urlStart}${this.idGroup}/cards/${cardId}`, {
+    return fetch(`${this.urlStart}${this.idGroup}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this.token,
         'Content-Type': 'application/json'
       }
     })
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(res => res)
   }
 
   addLike(cardId) {
-    fetch(`${this.urlStart}${this.idGroup}/cards/likes/${cardId}`, {
+    return fetch(`${this.urlStart}${this.idGroup}/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: {
         authorization: this.token,
         'Content-Type': 'application/json'
       }
     })
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(res => res)
   }
 
   deleteLike(cardId) {
-    fetch(`${this.urlStart}${this.idGroup}/cards/likes/${cardId}`, {
+    return fetch(`${this.urlStart}${this.idGroup}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this.token,
         'Content-Type': 'application/json'
       }
     })
+      .then(res => {
+        if (res.ok) return res.json()
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(res => res)
   }
 }

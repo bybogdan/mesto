@@ -1,8 +1,9 @@
 import { Popup } from './Popup.js'
 
 export class PopupWithForm extends Popup {
-  constructor(selector, callbackFormSubmit, clearFormValidation) {
+  constructor(selector, selectorButtonSave, callbackFormSubmit, clearFormValidation) {
     super(selector)
+    this._buttonSave = this._popup.querySelector(selectorButtonSave)
     this.callbackFormSubmit = callbackFormSubmit
     this.clearFormValidation = clearFormValidation
     this._saveChange = this._saveChange.bind(this)
@@ -20,18 +21,17 @@ export class PopupWithForm extends Popup {
   }
 
   _saveChange() {
-    const promiseSaveData = new Promise((resolve, reject) => {
-      const saveButton = this._formPopup.querySelector('.popup-save')
-      saveButton.textContent = `${saveButton.textContent}...`
-      resolve(this.callbackFormSubmit(this._getInputValues()))
-    })
-    promiseSaveData
-      .then(() => {
-        const saveButton = this._formPopup.querySelector('.popup-save')
-        saveButton.textContent = saveButton.textContent.slice(0, -3)
-        this.close()
-        this._formPopup.reset()
-      })
+    this._buttonSave.textContent = `${this._buttonSave.textContent}...`
+    console.log('added dot')
+    this.callbackFormSubmit(this._getInputValues())
+  }
+
+  downloadEnded() {
+    // удаляем точки после завершения загрзузки данных на сервер
+    this._buttonSave.textContent = this._buttonSave.textContent.slice(0, -3)
+    this.close()
+    this._formPopup.reset()
+    console.log('deleted dot')
   }
 
   setEventListeners() {
