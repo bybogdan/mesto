@@ -22,7 +22,6 @@ export class PopupWithForm extends Popup {
 
   _saveChange() {
     this._buttonSave.textContent = `${this._buttonSave.textContent}...`
-    console.log('added dot')
     this.callbackFormSubmit(this._getInputValues())
   }
 
@@ -31,7 +30,6 @@ export class PopupWithForm extends Popup {
     this._buttonSave.textContent = this._buttonSave.textContent.slice(0, -3)
     this.close()
     this._formPopup.reset()
-    console.log('deleted dot')
   }
 
   setEventListeners() {

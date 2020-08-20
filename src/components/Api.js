@@ -1,6 +1,6 @@
 // Токен: ab977504-63f5-4a6b-b9b1-a67a5dd53592
 // Идентификатор группы: cohort-14
-// id b2063da6876b74f04be31a71
+// мой id b2063da6876b74f04be31a71
 
 export class Api {
   constructor() {

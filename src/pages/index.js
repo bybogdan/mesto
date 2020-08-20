@@ -13,6 +13,7 @@ import {
   popupEditNameInput,
   popupEditCaptionInput,
   buttonEditAvatar,
+  main,
 } from '../utils/constants.js'
 import { Card } from '../components/Сard.js'
 import { FormValidator } from '../components/FormValidator.js'
@@ -27,7 +28,9 @@ forms.forEach(form => {
   form.enableValidation();
 })
 
+// создание экземпляра класса api
 const api = new Api()
+
 // загрузка и отрисовка профиля
 const loadProfileFromServer = new Promise((resolve, reject) => {
   resolve(api.getUserInfo())
@@ -40,14 +43,12 @@ loadProfileFromServer.then(user => {
 
 // callback функция для удаление карточек
 const deleteOwnCard = (deleteCard, card) => {
-  console.log('click delete button')
   const popupConfirmDeleteCard = new PopupWithForm('.popup-confirm-delete', '.popup-save',
     () => {
       const promiseCallback = new Promise((resolve, reject) => {
         resolve(api.removeCard(card.cardId))
       })
       promiseCallback.then((res) => {
-        console.log(res)
         deleteCard.call(card)
         popupConfirmDeleteCard.downloadEnded()
       })
@@ -61,42 +62,48 @@ const deleteOwnCard = (deleteCard, card) => {
   popupConfirmDeleteCard.open()
 }
 
+// callback функция для добавления лайка
+const addLikeCallback = (cardForLike, likeCounter, likeButton, card) => {
+  const promiseCallback = new Promise((resolve, reject) => {
+    resolve(api.addLike(cardForLike.cardId))
+  })
+  promiseCallback.then((res) => {
+    likeCounter.textContent = res.likes.length
+    card.likeToggleColor(likeButton)
+  })
+}
+
+// callback функция для удаления лайка
+const removeLikeCallback = (cardForLike, likeCounter, likeButton, card) => {
+  const promiseCallback = new Promise((resolve, reject) => {
+    resolve(api.deleteLike(cardForLike.cardId))
+  })
+  promiseCallback.then((res) => {
+    likeCounter.textContent = res.likes.length
+    card.likeToggleColor(likeButton)
+  })
+}
+
 // загрузка и отрисовка карточек с сервера
 const loadCardsFromServer = new Promise((resolve, reject) => {
   resolve(api.loadCards())
 })
 loadCardsFromServer.then(cardsFromServer => {
+  // удаляем спиннер после того как данные загрузились
+  main.classList.remove('main_loading')
+
   const cards = new Section({
     items: cardsFromServer,
     renderer: ({ name, link, likes, owner, _id: cardId }) => {
 
-      // проверка как корректность ссылки на изображенияя что ее можно открыть
-      fetch(link)
-        .then(res => {
-          console.log(res)
-          console.log(res.ok)
-          if (res.status === 404) {
-            console.log('url is not correct')
-          }
-        })
-        .then(res => res)
-
-
-      // console.log(link)
       const card = new Card(name, link, likes, owner, cardId, '#card',
         ({ title, imgLink }) => {
           const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle)
           popupFull.open(title, imgLink)
         },
-        (deleteCard) => {
-          deleteOwnCard(deleteCard, card)
-        },
-        (cardForLike) => {
-          api.addLike(cardForLike.cardId)
-        },
-        (cardForLike) => {
-          api.deleteLike(cardForLike.cardId)
-        }
+        (deleteCard) => { deleteOwnCard(deleteCard, card) },
+        (cardForLike, likeCounter, likeButton) => { addLikeCallback(cardForLike, likeCounter, likeButton, card) },
+        (cardForLike, likeCounter, likeButton) => { removeLikeCallback(cardForLike, likeCounter, likeButton, card) }
       )
       const cardElement = card.generateCard();
       cards.addItem(cardElement)
@@ -134,20 +141,16 @@ buttonEdit.addEventListener('click', () => {
   popupEdit.open()
   buttonEdit.blur();
 })
+
 // возвращщенный результат вызова метода _getInputValues записывается в inputsValues
 const popupAdd = new PopupWithForm('.popup-add-card', '.popup-save', (inputsValues) => {
   // убран вызов метода _getInputValues внутри данной функции (callback)
-  // console.log('before promise')
-  // const { name: name, caption: link } = inputsValues
   const promiseCallback = new Promise((resolve, reject) => {
     const { name: name, caption: link } = inputsValues
     resolve(api.addCard({ name, link }))
-    console.log('in promise')
   })
   promiseCallback
     .then((cardFromServer) => {
-      console.log(cardFromServer)
-      console.log('in then promise')
       const newCards = [cardFromServer];
       const prependNewCard = new Section({
         items: newCards,
@@ -157,30 +160,17 @@ const popupAdd = new PopupWithForm('.popup-add-card', '.popup-save', (inputsValu
               const popupFull = new PopupWithImage('.popup-full-image', popupFullImage, popupFullTitle)
               popupFull.open(title, imgLink)
             },
-            (deleteCard) => {
-              deleteOwnCard(deleteCard, card)
-            },
-            (cardForLike) => {
-              api.addLike(cardForLike.cardId)
-            },
-            (cardForLike) => {
-              api.deleteLike(cardForLike.cardId)
-            }
+            (deleteCard) => { deleteOwnCard(deleteCard, card) },
+            (cardForLike, likeCounter, likeButton) => { addLikeCallback(cardForLike, likeCounter, likeButton, card) },
+            (cardForLike, likeCounter, likeButton) => { removeLikeCallback(cardForLike, likeCounter, likeButton, card) }
           )
           const cardElement = card.generateCard();
           prependNewCard.addItemToStart(cardElement)
         }
       }, '.gallery__elements')
-
       prependNewCard.rendererItems()
-    })
-    .then(() => {
-      console.log('image loaded')
       popupAdd.downloadEnded()
     })
-  // api.addCard({ name, link })
-
-  // api.loadCards()
 },
   (formPopup) => {
     const form = new FormValidator(defaultFormConfig, formPopup)

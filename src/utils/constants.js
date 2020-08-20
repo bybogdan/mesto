@@ -19,3 +19,4 @@ export const popupFullTitle = document.querySelector('.popup-full-image__title')
 
 export const buttonEditAvatar = document.querySelector('.profile__avatar-button')
 export const popupEditAvatarInput = document.querySelector('.popup-edit-avatar__input_text_caption')
+export const main = document.querySelector('.main')
