@@ -185,10 +185,8 @@ creatNewCardBtn.addEventListener('click', () => {
 })
 
 const popupEditAvatar = new PopupWithForm('.popup-edit-avatar', '.popup-save', (newAvatar) => {
-  console.log('in promise')
   const promiseCallback = new Promise((resolve, reject) => {
     resolve(api.editUserAvatar(newAvatar.caption))
-
   })
   promiseCallback
     .then((user) => {
