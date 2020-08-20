@@ -28,11 +28,12 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
     // проверка, чтобы можно было удалять, только свои карточки
-    if (this.owner && this.myId !== this.owner._id) {
-      this._element.querySelector('.gallery__trash-button').style.display = 'none'
-    }
+    if (this.owner && this.myId !== this.owner._id) { this._element.querySelector('.gallery__trash-button').style.display = 'none' }
     const cardImg = this._element.querySelector('.gallery__img');
-    cardImg.src = this._imgLink;
+    // исключил картинку где установленна некорректная URL (которая не ведет ни на какую картинку) дргуим пользователем, 
+    // чтобы не выпадала ошибка в консоль 404 что не найден это адрес.
+    if (this._imgLink === 'https://pictures.s3.yandex.net/frontend-developer/ava.jpg') { return }
+    cardImg.src = this._imgLink
     cardImg.alt = this._title;
     this._element.querySelector('.gallery__element-title').textContent = this._title;
     if (this.likes) {
@@ -42,7 +43,6 @@ export class Card {
         }
       })
     }
-
 
     this._element.querySelector('.gallery__like-counter').textContent = this.likes ? this.likes.length : 0
     this._setEventListeners();
@@ -64,16 +64,11 @@ export class Card {
   _likeToggle() {
     const likeButton = this._element.querySelector('.gallery__like-button')
     const likeCounter = this._element.querySelector('.gallery__like-counter')
-    likeButton.classList.toggle('gallery__like-button_selected')
-    if (likeButton.classList.contains('gallery__like-button_selected')) {
-      likeCounter.textContent = parseInt(likeCounter.textContent) + 1
-      this.addLike(this)
-    }
-    else {
-      likeCounter.textContent = parseInt(likeCounter.textContent) - 1
-      this.deleteLike(this)
-    }
+    likeButton.classList.contains('gallery__like-button_selected') ? this.deleteLike(this, likeCounter, likeButton) : this.addLike(this, likeCounter, likeButton)
+  }
 
+  likeToggleColor(likeButton) {
+    likeButton.classList.toggle('gallery__like-button_selected')
   }
 
   _deleteCard() {

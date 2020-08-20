@@ -1,30 +1,3 @@
-// массив c исходноми карточками
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 export const defaultFormConfig = {
   formSelector: '.popup-form',
   inputSelector: '.popup-input',
@@ -46,3 +19,4 @@ export const popupFullTitle = document.querySelector('.popup-full-image__title')
 
 export const buttonEditAvatar = document.querySelector('.profile__avatar-button')
 export const popupEditAvatarInput = document.querySelector('.popup-edit-avatar__input_text_caption')
+export const main = document.querySelector('.main')
