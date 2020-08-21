@@ -1,9 +1,0 @@
-@import url(./__container/popup-add-card__container.css);
-
-.popup-add-card{
-  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-  display: flex;
-  opacity: 0;
-  visibility: hidden;
-  transition: visibility .6s, opacity .3s linear;
-}
