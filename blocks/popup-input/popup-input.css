@@ -1,0 +1,21 @@
+@import url(./_type_error/popup-input_type_error.css);
+
+.popup-input{
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.22;
+  padding-bottom: 4px;
+  margin-bottom: 5px;
+  overflow: visible;
+}
+
+@media screen and (max-width: 400px){
+  .popup-input{
+    font-size: 12px;
+    line-height: 1.25;
+    margin-bottom: 3px;
+  }
+}
