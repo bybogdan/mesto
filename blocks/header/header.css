@@ -1,0 +1,22 @@
+@import url(./__logo/header__logo.css);
+
+.header{
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  box-sizing: border-box;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
+  margin: 0 auto;
+  max-width: 882px;
+}
+
+@media screen and (max-width: 919px){
+  .header{
+    padding-left: 27px;
+  }
+}
+
+@media screen and (max-width: 619px){
+  .header{
+    padding-bottom: 31px;
+  }
+}
