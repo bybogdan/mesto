@@ -3,35 +3,43 @@
 export class FormValidator {
   constructor(object, formElement) {
     this._formSelector = object.formSelector;
-    this._inputSelector = object.inputSelector
-    this._submitButtonSelector = object.submitButtonSelector
-    this._inactiveButtonClass = object.inactiveButtonClass
-    this._inputErrorClass = object.inputErrorClass
-    this._errorClass = object.errorClass
+    this._inputSelector = object.inputSelector;
+    this._submitButtonSelector = object.submitButtonSelector;
+    this._inactiveButtonClass = object.inactiveButtonClass;
+    this._inputErrorClass = object.inputErrorClass;
+    this._errorClass = object.errorClass;
 
-    this._formElement = formElement
+    this._formElement = formElement;
   }
 
   // открываем span с ошибкой
   _showInputError(formElement, inputElement, errorMessage) {
-    const popupErrorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    const popupErrorElement = formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     inputElement.classList.add(this._inputErrorClass);
     popupErrorElement.textContent = errorMessage;
-    popupErrorElement.classList.add(this._errorClass)
+    popupErrorElement.classList.add(this._errorClass);
   }
 
   // скрываем span  с ошибкой
   _hideInputError(formElement, inputElement) {
-    const popupErrorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    const popupErrorElement = formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     inputElement.classList.remove(this._inputErrorClass);
     popupErrorElement.classList.remove(this._errorClass);
-    popupErrorElement.textContent = '';
+    popupErrorElement.textContent = "";
   }
 
   // проверка на валидность
   _isValid(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(this._formElement, inputElement, inputElement.validationMessage);
+      this._showInputError(
+        this._formElement,
+        inputElement,
+        inputElement.validationMessage
+      );
     } else {
       this._hideInputError(this._formElement, inputElement);
     }
@@ -39,9 +47,9 @@ export class FormValidator {
 
   // ищем не валидные инпуты
   _hasInvalidInput(inputs) {
-    return inputs.some(input => {
-      return !input.validity.valid
-    })
+    return inputs.some((input) => {
+      return !input.validity.valid;
+    });
   }
 
   // переключаем стили для инпутов и кнопки sumbit
@@ -58,31 +66,31 @@ export class FormValidator {
   // очистка формы при закрытие
   _popupFormClear(input) {
     this._hideInputError(this._formElement, input);
-    input.value = '';
+    input.value = "";
   }
 
-  _setEventListener(
-    inputSelector,
-    submitButtonSelector) {
-    const inputs = Array.from(this._formElement.querySelectorAll(inputSelector));
-    const buttonSaveForm = this._formElement.querySelector(submitButtonSelector);
+  _setEventListener(inputSelector, submitButtonSelector) {
+    const inputs = Array.from(
+      this._formElement.querySelectorAll(inputSelector)
+    );
+    const buttonSaveForm = this._formElement.querySelector(
+      submitButtonSelector
+    );
     this._toggleButtonState(inputs, buttonSaveForm);
     inputs.forEach((input) => {
-      input.addEventListener('input', () => {
+      input.addEventListener("input", () => {
         this._isValid(input);
-        this._toggleButtonState(inputs, buttonSaveForm)
-      })
+        this._toggleButtonState(inputs, buttonSaveForm);
+      });
       this._popupFormClear(input);
-    })
+    });
   }
 
   enableValidation() {
-    this._formElement.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-    })
+    });
 
-    this._setEventListener(
-      this._inputSelector,
-      this._submitButtonSelector)
+    this._setEventListener(this._inputSelector, this._submitButtonSelector);
   }
 }
