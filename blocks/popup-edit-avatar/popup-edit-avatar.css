@@ -1,9 +1,0 @@
-@import url(./__container/popup-edit-avatar__container.css);
-
-.popup-edit-avatar{
-  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-  display: flex;
-  opacity: 0;
-  visibility: hidden;
-  transition: visibility .6s, opacity .3s linear;
-}
