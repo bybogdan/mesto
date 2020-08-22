@@ -48,7 +48,12 @@ export class Card {
     const cardImg = this._element.querySelector(".gallery__img");
     // исключил картинку где установленна некорректная URL (которая не ведет ни на какую картинку) дргуим пользователем,
     // чтобы не выпадала ошибка в консоль 404 что не найден это адрес.
-    // if (this._imgLink === 'https://pictures.s3.yandex.net/frontend-developer/ava.jpg') { return }
+    if (
+      this._imgLink ===
+      "https://vignette.wikia.nocookie.net/smesharikiarhives/images/7/77/%D0%9B%D0%BE%D1%81%D1%8F%D1%88_%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%BD%D1%8B%D0%B9_%D0%B7%D0%BD%D0%B0%D0%BA.png/revision/latest/scale-to-width-down/1000?cb=20190420135421&amp;path-prefix=ru"
+    ) {
+      return;
+    }
     cardImg.src = this._imgLink;
     cardImg.alt = this._title;
     this._element.querySelector(
