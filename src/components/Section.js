@@ -1,21 +1,26 @@
 export class Section {
-  constructor({ items, renderer }, selector) {
-    this._items = items;
+  constructor({ renderer }, selector) {
     this._renderer = renderer;
     this._container = document.querySelector(selector);
   }
 
-  rendererItems() {
-    this._items.forEach((item) => {
-      this._renderer(item);
+  rendererItems(cardsFromServer, addTo) {
+    cardsFromServer.forEach((item) => {
+      const cardElement = this._renderer(item);
+      // указываем куда добавлять, в начало или в конец
+      if (addTo === "add to end") {
+        this._addItem(cardElement);
+      } else {
+        this._addItemToStart(cardElement);
+      }
     });
   }
 
-  addItem(item) {
+  _addItem(item) {
     this._container.append(item);
   }
 
-  addItemToStart(item) {
+  _addItemToStart(item) {
     this._container.prepend(item);
   }
 }

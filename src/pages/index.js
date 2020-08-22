@@ -32,10 +32,7 @@ forms.forEach((form) => {
 const api = new Api();
 
 // загрузка и отрисовка профиля
-const loadProfileFromServer = new Promise((resolve, reject) => {
-  resolve(api.getUserInfo());
-});
-loadProfileFromServer.then((user) => {
+api.getUserInfo().then((user) => {
   nameProfile.textContent = user.name;
   captionProfile.textContent = user.about;
   avatarProfile.src = user.avatar;
@@ -108,27 +105,26 @@ const createCard = ({ name, link, likes, owner, _id: cardId }) => {
   return card;
 };
 
-// загрузка и отрисовка карточек с сервера
-const loadCardsFromServer = new Promise((resolve, reject) => {
-  resolve(api.loadCards());
-});
+// создание уникального экземпляра section на глобальном уровне
+const cards = new Section(
+  {
+    renderer: ({ name, link, likes, owner, _id }) => {
+      const card = createCard({ name, link, likes, owner, _id });
+      const cardElement = card.generateCard();
+      return cardElement;
+    },
+  },
+  ".gallery__elements"
+);
 
-loadCardsFromServer.then((cardsFromServer) => {
+// загрузка и отрисовка карточек с сервера
+api.loadCards().then((cardsFromServer) => {
   // удаляем спиннер после того как данные загрузились
   main.classList.remove("main_loading");
-
-  const cards = new Section(
-    {
-      items: cardsFromServer,
-      renderer: ({ name, link, likes, owner, _id }) => {
-        const card = createCard({ name, link, likes, owner, _id });
-        const cardElement = card.generateCard();
-        cards.addItem(cardElement);
-      },
-    },
-    ".gallery__elements"
-  );
-  cards.rendererItems();
+  // флаг указывающий куда добавлять карточку
+  const addTo = "add to end";
+  // вызов метода уникального объекта класса section
+  cards.rendererItems(cardsFromServer, addTo);
 });
 
 const userInfo = new UserInfo(
@@ -179,19 +175,11 @@ const popupAdd = new PopupWithForm(
     // убран вызов метода _getInputValues внутри данной функции (callback)
     const { name: name, caption: link } = inputsValues;
     api.addCard({ name, link }).then((cardFromServer) => {
-      const newCards = [cardFromServer];
-      const prependNewCard = new Section(
-        {
-          items: newCards,
-          renderer: ({ name, link, likes, owner, _id }) => {
-            const card = createCard({ name, link, likes, owner, _id });
-            const cardElement = card.generateCard();
-            prependNewCard.addItemToStart(cardElement);
-          },
-        },
-        ".gallery__elements"
-      );
-      prependNewCard.rendererItems();
+      const cardsFromServer = [cardFromServer];
+      // флаг указывающий куда добавлять карточку
+      const addTo = "add to start";
+      // вызов метода уникального объекта класса section
+      cards.rendererItems(cardsFromServer, addTo);
       popupAdd.downloadEnded();
     });
   },
